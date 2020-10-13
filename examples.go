@@ -255,6 +255,6 @@ func requestGetImages() {
 // 	// requestSubstringMatching()
 // 	// requestRegex()
 // 	// requestParsingGoquery()
-// 	// parsingURL()
-// 	requestGetImages()
+// 	parsingURL()
+// 	// requestGetImages()
 // }
