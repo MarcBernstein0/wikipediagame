@@ -10,12 +10,19 @@ import (
 	"github.com/PuerkitoBio/goquery"
 )
 
+const (
+	scheme = "https"
+	host   = "en.wikipedia.org"
+)
+
 func getValidWikiURL(urlString string) (*url.URL, bool) {
 	url, err := url.Parse(urlString)
 	if err != nil {
 		return nil, false
 	}
 	if url.Host == "" && url.Scheme == "" && strings.Contains(url.Path, "/wiki/") {
+		url.Scheme = scheme
+		url.Host = host
 		return url, true
 	}
 	return nil, false
@@ -53,9 +60,9 @@ func GetLinks(urlString string) ([]*url.URL, error) {
 	if err != nil {
 		return nil, fmt.Errorf("Go query failed:\n%v", err)
 	}
-	for _, parsedURL := range urls {
-		fmt.Println(parsedURL)
-	}
+	// for _, parsedURL := range urls {
+	// 	fmt.Println(parsedURL)
+	// }
 	if urls == nil {
 		return nil, fmt.Errorf("No links found on page %v", urlString)
 	}
