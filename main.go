@@ -13,5 +13,12 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Println(links)
+	for i, link := range links {
+		fmt.Printf("Link %d:\n\tscheme: %s\n\thost: %s\n\tpath: %s\n",
+			i,
+			link.Scheme,
+			link.Host,
+			link.Path,
+		)
+	}
 }
