@@ -1,7 +1,9 @@
 package services
 
 import (
+	"fmt"
 	"net/http"
+	"net/url"
 	"testing"
 )
 
@@ -40,12 +42,28 @@ func TestInternalWikiString(t *testing.T) {
 }
 
 func TestURLList(t *testing.T) {
-	urlString := "https://en.wikipedia.org/wiki/Go_(programming_language)"
-	result, err := GetLinks(urlString)
+	address, err := url.Parse("https://en.wikipedia.org/wiki/Go_(programming_language)")
+	if err != nil {
+		t.Error("URL could not be parsed")
+	}
+	testLink := Link{
+		URL: address,
+	}
+	result, err := GetLinks(testLink)
 	if err != nil {
 		t.Errorf("Got back error: %v\n", err)
 	}
 	if result == nil {
 		t.Errorf("No links found")
+	}
+
+	for i, link := range result {
+		fmt.Printf("Pass link: %+v\n", link.pastURLs)
+		fmt.Printf("Link %d:\n\tscheme: %s\n\thost: %s\n\tpath: %s\n",
+			i,
+			link.Scheme,
+			link.Host,
+			link.Path,
+		)
 	}
 }

@@ -47,7 +47,9 @@ func getInternalURLs(body io.Reader) ([]*url.URL, error) {
 
 // GetLinks takes in a url string and returns a list of *url.URL or err if
 // an error occured
-func GetLinks(urlString string) ([]*url.URL, error) {
+func GetLinks(link Link) ([]Link, error) {
+	urlString := link.String()
+	pastURLs := append(link.pastURLs, link.URL)
 	response, err := http.Get(urlString)
 	if err != nil {
 		return nil, fmt.Errorf("Get request failed:\n%v", err)
@@ -60,11 +62,17 @@ func GetLinks(urlString string) ([]*url.URL, error) {
 	if err != nil {
 		return nil, fmt.Errorf("Go query failed:\n%v", err)
 	}
-	// for _, parsedURL := range urls {
-	// 	fmt.Println(parsedURL)
-	// }
 	if urls == nil {
 		return nil, fmt.Errorf("No links found on page %v", urlString)
 	}
-	return urls, nil
+	var links []Link
+	for _, parsedURL := range urls {
+		newLink := Link{
+			URL:      parsedURL,
+			pastURLs: pastURLs,
+		}
+		links = append(links, newLink)
+	}
+
+	return links, nil
 }
