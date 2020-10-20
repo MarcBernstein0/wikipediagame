@@ -58,6 +58,7 @@ func GetLinks(link Link) ([]Link, error) {
 	if response.StatusCode != 200 {
 		return nil, fmt.Errorf("status code error for link %s: %d %s", urlString, response.StatusCode, response.Status)
 	}
+
 	urls, err := getInternalURLs(response.Body)
 	if err != nil {
 		return nil, fmt.Errorf("Go query failed:\n%v", err)

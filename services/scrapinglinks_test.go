@@ -1,7 +1,6 @@
 package services
 
 import (
-	"fmt"
 	"net/http"
 	"net/url"
 	"testing"
@@ -57,13 +56,13 @@ func TestURLList(t *testing.T) {
 		t.Errorf("No links found")
 	}
 
-	for i, link := range result {
-		fmt.Printf("Pass link: %+v\n", link.pastURLs)
-		fmt.Printf("Link %d:\n\tscheme: %s\n\thost: %s\n\tpath: %s\n",
-			i,
-			link.Scheme,
-			link.Host,
-			link.Path,
-		)
-	}
+	// for i, link := range result {
+	// 	fmt.Printf("Pass link: %+v\n", link.pastURLs)
+	// 	fmt.Printf("Link %d:\n\tscheme: %s\n\thost: %s\n\tpath: %s\n",
+	// 		i,
+	// 		link.Scheme,
+	// 		link.Host,
+	// 		link.Path,
+	// 	)
+	// }
 }
